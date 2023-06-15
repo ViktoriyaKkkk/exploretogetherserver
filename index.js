@@ -38,7 +38,7 @@ app.use(express.json())
 app.use('/api', router)
 const io = new Server(server, {
 	cors: {
-		origin: 'http://exploretogether.std-929.ist.mospolytech.ru/',
+		origin: 'https://mellow-puffpuff-65cfcb.netlify.app/',
 		methods: ['GET', 'POST'],
 	},
 })
