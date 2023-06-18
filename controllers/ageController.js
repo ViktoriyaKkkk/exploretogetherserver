@@ -10,7 +10,6 @@ class AgeController {
         } catch (e) {
             res.status(500).json(e)
         }
-
     }
 
     async update(req, res) {

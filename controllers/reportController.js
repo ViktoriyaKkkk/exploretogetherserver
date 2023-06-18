@@ -1,4 +1,5 @@
 import {Report} from "../models/models.js";
+import { mailer } from '../nodemailer.js'
 
 class ReportController {
 	async create(req, res) {
@@ -20,6 +21,15 @@ class ReportController {
 				res.status(400).json({message:'Id не указан'})
 			}
 			const updatedReport = await Report.findByIdAndUpdate(report.id, report, {new: true})
+			const message = {
+				to: report.offenderData.email,
+				subject: 'Explore Together уведомляет о жалобе на вас',
+				text: `Здравствуйте, ${report.offenderData.name}! На вас была подана жалоба.
+${report.notificationText}.
+Просим в дальнейшем не распространять подобный контент, иначе Explore Together будет вынужден заблокировать ваш аккаунт.
+С уважением, администрация Explore Together.`,
+			}
+			mailer(message)
 			console.log(req.body)
 			res.json(updatedReport);
 		} catch (e) {
