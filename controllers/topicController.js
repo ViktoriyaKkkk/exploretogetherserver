@@ -5,7 +5,6 @@ class TopicController {
         try {
             const {name} = req.body
             const topic = await Topic.create({name})
-            console.log(req.body)
             res.json(topic);
         } catch (e) {
             res.status(500).json(e)
@@ -20,7 +19,6 @@ class TopicController {
                 res.status(400).json({message:'Id не указан'})
             }
             const updatedTopic = await Topic.findByIdAndUpdate(topic.id, topic, {new: true})
-            console.log(req.body)
             res.json(updatedTopic);
         } catch (e) {
             res.status(500).json(e)

@@ -7,7 +7,6 @@ class SectionController {
             let {name, topicId} = req.body
             topicId = new mongoose.Types.ObjectId(topicId);
             const section = await Section.create({name, topicId})
-            console.log(req.body)
             res.json(section);
         } catch (e) {
             res.status(500).json(e)
@@ -22,7 +21,6 @@ class SectionController {
                 res.status(400).json({message:'Id не указан'})
             }
             const updatedSection = await Section.findByIdAndUpdate(section.id, section, {new: true})
-            console.log(req.body)
             res.json(updatedSection);
         } catch (e) {
             res.status(500).json(e)

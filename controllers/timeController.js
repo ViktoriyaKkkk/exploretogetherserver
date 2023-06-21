@@ -5,7 +5,6 @@ class TimeController {
         try {
             const {name} = req.body
             const time = await Time.create({name})
-            console.log(req.body)
             res.json(time);
         } catch (e) {
             res.status(500).json(e)
@@ -20,7 +19,6 @@ class TimeController {
                 res.status(400).json({message:'Id не указан'})
             }
             const updatedTime = await Time.findByIdAndUpdate(time.id, time, {new: true})
-            console.log(req.body)
             res.json(updatedTime);
         } catch (e) {
             res.status(500).json(e)

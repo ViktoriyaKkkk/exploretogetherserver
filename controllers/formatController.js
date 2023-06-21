@@ -5,7 +5,6 @@ class FormatController {
         try {
             const {name} = req.body
             const format = await Format.create({name})
-            console.log(req.body)
             res.json(format);
         } catch (e) {
             res.status(500).json(e)
@@ -20,7 +19,6 @@ class FormatController {
                 res.status(400).json({message:'Id не указан'})
             }
             const updatedFormat = await Format.findByIdAndUpdate(format.id, format, {new: true})
-            console.log(req.body)
             res.json(updatedFormat);
         } catch (e) {
             res.status(500).json(e)

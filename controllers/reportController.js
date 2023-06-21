@@ -6,7 +6,6 @@ class ReportController {
 		try {
 			const {sender, offender, reportText, processed} = req.body
 			const report = await Report.create({sender, offender, reportText, processed})
-			console.log(req.body)
 			res.json(report);
 		} catch (e) {
 			res.status(500).json(e)
@@ -30,7 +29,6 @@ ${report.notificationText}.
 С уважением, администрация Explore Together.`,
 			}
 			mailer(message)
-			console.log(req.body)
 			res.json(updatedReport);
 		} catch (e) {
 			res.status(500).json(e)

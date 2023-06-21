@@ -5,7 +5,6 @@ class CityController {
         try {
             const {name} = req.body
             const city = await City.create({name})
-            console.log(req.body)
             res.json(city);
         } catch (e) {
             res.status(500).json(e)
@@ -20,7 +19,6 @@ class CityController {
                 res.status(400).json({message:'Id не указан'})
             }
             const updatedCity = await City.findByIdAndUpdate(city.id, city, {new: true})
-            console.log(req.body)
             res.json(updatedCity);
         } catch (e) {
             res.status(500).json(e)

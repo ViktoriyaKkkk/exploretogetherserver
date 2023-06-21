@@ -1,5 +1,4 @@
 import Router from 'express'
-
 import {roleMiddleware} from "../middlewares/roleMiddleware.js";
 import {authMiddleware} from "../middlewares/authMiddleware.js";
 import ReportController from '../controllers/reportController.js'

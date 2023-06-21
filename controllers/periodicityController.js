@@ -5,7 +5,6 @@ class PeriodicityController {
         try {
             const {name} = req.body
             const periodicity = await Periodicity.create({name})
-            console.log(req.body)
             res.json(periodicity);
         } catch (e) {
             res.status(500).json(e)
@@ -20,7 +19,6 @@ class PeriodicityController {
                 res.status(400).json({message:'Id не указан'})
             }
             const updatedPeriodicity = await Periodicity.findByIdAndUpdate(periodicity.id, periodicity, {new: true})
-            console.log(req.body)
             res.json(updatedPeriodicity);
         } catch (e) {
             res.status(500).json(e)

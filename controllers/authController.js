@@ -2,7 +2,6 @@ import { Age, Role, User } from '../models/models.js'
 import bcrypt from 'bcryptjs'
 import { validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
-import { mailer } from '../nodemailer.js'
 
 const generateToken = (id, role) => {
 	const payload = {
@@ -17,7 +16,6 @@ class AuthController {
 		try {
 			const errors = validationResult(req)
 			if (!errors.isEmpty()) {
-				console.log(errors)
 				return res.status(400).json({ message: 'Ошибка регистрации', errors })
 			}
 			let role = 'USER'
@@ -65,63 +63,11 @@ class AuthController {
 	async update(req, res) {
 		try {
 			const userData = req.body
-			// console.log(id, name, email,role, password, newPassword, gender, socialNetwork, info)
 			if (!userData.id) {
 				res.status(400).json({ message: 'Id не указан' })
 			}
 			const user = await User.findById(userData.id).exec()
-			// if (userData.password) {
-			// 	bcrypt.compare(userData.password, user.password, async function(err, result) {
-			// 		if (err || !result) {
-			// 			return res.status(400).json({ message: 'Неверный пароль' })
-			// 		}
-			// 		if (userData.newPassword) {
-			// 			bcrypt.hash(userData.newPassword, 7, async function(err, hash) {
-			// 				if (err) {
-			// 					return res.status(500).json({ message: 'Что-то пошло не так' })
-			// 				}
-			// 				console.log('userData: ', userData)
-			// 				const updatedUser = await User.findByIdAndUpdate(userData.id, {
-			// 					id: userData.id || user._id,
-			// 					name: userData.name || user.name,
-			// 					email: userData.email || user.email,
-			// 					role: userData.role || user.role,
-			// 					password: hash,
-			// 					gender: userData.gender || user.gender,
-			// 					socialNetwork: userData.socialNetwork,
-			// 					info: userData.info,
-			// 				}, { new: true })
-			// 				return res.json(updatedUser)
-			// 			})
-			// 		} else {
-			// 			const updatedUser = await User.findByIdAndUpdate(userData.id, {
-			// 				id: userData.id || user._id,
-			// 				name: userData.name || user.name,
-			// 				email: userData.email || user.email,
-			// 				role: userData.role || user.role,
-			// 				password: user.password,
-			// 				gender: userData.gender || user.gender,
-			// 				socialNetwork: userData.socialNetwork,
-			// 				info: userData.info,
-			// 			}, { new: true })
-			// 			return res.json(updatedUser)
-			// 		}
-			// 	})
-			// } else {
-			// 	const updatedUser = await User.findByIdAndUpdate(userData.id, {
-			// 		id: userData.id || user._id,
-			// 		name: userData.name || user.name,
-			// 		email: userData.email || user.email,
-			// 		role: userData.role || user.role,
-			// 		password: user.password,
-			// 		gender: userData.gender || user.gender,
-			// 		socialNetwork: userData.socialNetwork,
-			// 		info: userData.info,
-			// 	}, { new: true })
-			// 	return res.json(updatedUser)
-			// }
 			if (!userData.password) {
-				console.log('block1', userData.password, userData.newPassword)
 				const updatedUser = await User.findByIdAndUpdate(userData.id, {
 					id: userData.id || user._id,
 					name: userData.name || user.name,
@@ -134,7 +80,6 @@ class AuthController {
 				}, { new: true })
 				return res.json(updatedUser)
 			} else {
-				console.log('block2', userData.password, userData.newPassword)
 				bcrypt.compare(userData.password, user.password, async function(err, result) {
 					if (err || !result) {
 						return res.status(400).json({ message: 'Неверный пароль' })
@@ -144,7 +89,6 @@ class AuthController {
 								if (err) {
 									return res.status(500).json({ message: 'Что-то пошло не так' })
 								}
-								console.log('userData: ', userData)
 								const updatedUser = await User.findByIdAndUpdate(userData.id, {
 									id: userData.id || user._id,
 									name: userData.name || user.name,
@@ -158,7 +102,6 @@ class AuthController {
 								return res.json(updatedUser)
 							})
 						} else {
-							console.log('block3', userData.password, userData.newPassword)
 							const updatedUser = await User.findByIdAndUpdate(userData.id, {
 								id: userData.id || user._id,
 								name: userData.name || user.name,
@@ -204,7 +147,6 @@ class AuthController {
 		try {
 			const token = generateToken(req.user.id, req.user.role)
 			res.json(token)
-			console.log(token)
 		} catch (e) {
 			res.status(500).json(e)
 		}

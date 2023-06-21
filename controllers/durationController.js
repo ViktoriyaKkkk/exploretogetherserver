@@ -5,7 +5,6 @@ class DurationController {
         try {
             const {name} = req.body
             const duration = await Duration.create({name})
-            console.log(req.body)
             res.json(duration);
         } catch (e) {
             res.status(500).json(e)
@@ -20,7 +19,6 @@ class DurationController {
                 res.status(400).json({message:'Id не указан'})
             }
             const updatedDuration = await Duration.findByIdAndUpdate(duration.id, duration, {new: true})
-            console.log(req.body)
             res.json(updatedDuration);
         } catch (e) {
             res.status(500).json(e)

@@ -3,7 +3,6 @@ import {roleMiddleware} from "../middlewares/roleMiddleware.js";
 import {authMiddleware} from "../middlewares/authMiddleware.js";
 import QuestionController from '../controllers/questionController.js'
 
-
 const questionRouter = new Router()
 
 questionRouter.post('/', authMiddleware, QuestionController.create)

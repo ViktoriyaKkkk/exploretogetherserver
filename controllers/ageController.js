@@ -5,7 +5,6 @@ class AgeController {
         try {
             const {name} = req.body
             const age = await Age.create({name})
-            console.log(req.body)
             res.json(age);
         } catch (e) {
             res.status(500).json(e)
@@ -19,7 +18,6 @@ class AgeController {
                 res.status(400).json({message:'Id не указан'})
             }
             const updatedAge = await Age.findByIdAndUpdate(age.id, age, {new: true})
-            console.log(req.body)
             res.json(updatedAge);
         } catch (e) {
             res.status(500).json(e)

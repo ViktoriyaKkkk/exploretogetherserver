@@ -19,7 +19,6 @@ class QuestionController {
 			if (!question.id) {
 				res.status(400).json({message:'Id не указан'})
 			}
-			console.log(req.body)
 			const senderData = await User.findById(question.sender)
 			const message = {
 				to: senderData.email,

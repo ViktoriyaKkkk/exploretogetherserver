@@ -103,7 +103,6 @@ class SearchController {
 				res.status(400).json({ message: 'Id не указан' })
 			}
 			const updatedSearch = await Search.findByIdAndUpdate(search.id, search, { new: true })
-			console.log(req.body)
 			res.json(updatedSearch)
 		} catch (e) {
 			res.status(500).json(e)

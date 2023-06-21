@@ -5,7 +5,6 @@ class MessageController {
 		try {
 			const {searchId,author,message,time} = req.body
 			const createdMessage = await MessageList.create({searchId,author,message,time})
-			console.log(createdMessage)
 			res.json(createdMessage);
 		} catch (e) {
 			res.status(500).json(e)
@@ -18,7 +17,6 @@ class MessageController {
 		if (!id) {
 			res.status(400).json({ message: 'Id не указан' })
 		}
-		console.log(id)
 		const chat = await MessageList.find({ searchId: id }).exec()
 		return res.json(chat)
 	}
