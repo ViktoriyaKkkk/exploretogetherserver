@@ -31,9 +31,13 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
 	console.log('user connected:', socket.id)
+	socket.on('leave_room', (data) => {
+		socket.leave(data)
+		console.log(`User ${socket.id} joined room ${data}`)
+	})
 	socket.on('join_room', (data) => {
 		socket.join(data)
-		console.log(`User ${socket.id} joined room ${data}`)
+		console.log(`User ${socket.id} left room ${data}`)
 	})
 	socket.on('send_message', (data) => {
 		console.log('receive send mes')

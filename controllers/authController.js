@@ -65,11 +65,11 @@ class AuthController {
 	async update(req, res) {
 		try {
 			const userData = req.body
-			const user = await User.findOne({ email: userData.email }).exec()
 			// console.log(id, name, email,role, password, newPassword, gender, socialNetwork, info)
 			if (!userData.id) {
 				res.status(400).json({ message: 'Id не указан' })
 			}
+			const user = await User.findById(userData.id).exec()
 			// if (userData.password) {
 			// 	bcrypt.compare(userData.password, user.password, async function(err, result) {
 			// 		if (err || !result) {
